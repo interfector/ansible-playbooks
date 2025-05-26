@@ -6,5 +6,5 @@
 
   tasks:
     - name: Get running Docker container names
-      shell: docker ps --format '{{.Names}}'
+      shell: "docker ps --format '{{.Names}}'"
       changed_when: false
