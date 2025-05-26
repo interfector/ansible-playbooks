@@ -1,0 +1,22 @@
+- name: List all running Docker containers
+  hosts: all
+  gather_facts: no
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+
+    - name: Get info about all Docker containers
+      community.docker.docker_container_info:
+        gather_facts: yes
+      register: docker_containers
+
+    - name: Filter running containers
+      set_fact:
+        running_containers: "{{ docker_containers.containers | selectattr('State.Status', 'equalto', 'running') | list }}"
+
+    - name: Print running container names
+      debug:
+        msg: "{{ item.Name }}"
+      loop: "{{ running_containers }}"
