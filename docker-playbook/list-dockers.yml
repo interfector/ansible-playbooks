@@ -7,4 +7,5 @@
   tasks:
     - name: Get running Docker container names
       shell: "docker ps --format '{{.Names}}'"
-      changed_when: false
+    - debug:
+        var: results.stdout
