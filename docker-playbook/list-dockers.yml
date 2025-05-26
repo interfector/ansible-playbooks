@@ -1,0 +1,10 @@
+- name: List all running Docker containers
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    - name: Get running Docker container names
+      shell: docker ps --format '{{.Names}}'
+      changed_when: false
